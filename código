@@ -1,1 +1,12 @@
-
+from diffusers import StableDiffusionPipeline
+import torch
+pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5",
+torch_dtype=torch.float16)
+pipe = pipe.to("cuda")
+ti=time.time()
+tf=time.time()
+torch_type=tf-ti
+prompt = "gato na lua"
+image = pipe(prompt).images[0]
+image.save("output.png")
+image.show()
